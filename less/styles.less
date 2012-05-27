@@ -1,0 +1,91 @@
+/**
+ * 
+ * Fluid, Responsive and Semantic grid for LESS: http://lesscss.org/
+ *
+ * Ems are based on generic browser default setting of 16px font size
+ * 
+ * Credits & inspiration: 
+ * Semantic Grid System, http://semantic.gs/
+ * Twitter Bootstrap, http://twitter.github.com/bootstrap/ 
+ * ZURB Foundation, http://foundation.zurb.com/
+ * Building a Nested Responsive Grid with Sass & Compass, http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass
+ * Building a modern grid system, http://www.netmagazine.com/tutorials/building-modern-grid-system
+ * Introducing the LESS CSS Grid, http://designshack.net/?p=12845
+ * 
+ * @author Aki Karkkainen
+ * @url https://github.com/akikoo/Fluid-Grid
+ * Twitter: http://twitter.com/akikoo
+ *
+ */
+
+/*==============================================================================
+  Import LESS mixins
+==============================================================================*/
+@import 'grid.less';
+
+
+
+/*==============================================================================
+  Rows, containing any number of columns 
+==============================================================================*/
+.row {
+	display: block;
+	margin: 0 auto 20px;
+	min-width: 768px; /*For oldIE, will be overwritten inside @media query*/
+	max-width: 1280px;  /*Make sure the grid doesn't get too wide*/
+	width: 100%;
+	.clearfix;
+}
+
+.row .row {
+	min-width: 0;
+}
+
+
+
+/*==============================================================================
+  Columns, inside a media query 
+==============================================================================*/
+@media only screen and (min-width: 0) {
+
+	.row {
+		min-width: 0; /*Overwrite oldIE rule form modern browsers*/
+	}	
+
+}
+
+
+@import "cols";
+@media only screen and (min-width: 30em) { //480px and up
+
+	.cols();
+	
+}
+
+
+
+/*==============================================================================
+  Temp demo grid styles
+==============================================================================*/
+h1 {
+	margin: 0 auto 20px;
+	max-width: 1280px;  /*Make sure the line doesn't get too long*/
+}
+
+.row {
+	background: #dedede;
+}
+
+.row .row {
+	background: transparent;
+	margin: 20px auto 0;
+}
+
+.row .col {
+	padding: 0 0 20px;
+	background: #ccc; 
+}
+
+.row .row .col {
+	background: #aaa;
+}

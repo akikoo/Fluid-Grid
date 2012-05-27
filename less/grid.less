@@ -1,0 +1,99 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Fluid, Responsive and Semantic grid for LESS CSS: http://lesscss.org/
+// 
+// Supports both generic '.grid-x' classes, or your own semantic class names, if you prefer. 
+// The grid is dynamically generated with the class names you specify. You can have any number of 
+// columns, with a gutter width you want (in percentage of course). Column widths and margins are 
+// calculated based on those two values. 
+// 
+// Instead of using both left and right margins (and negative margins in column container) as the 
+// Semantic Grid System does, this solution adopts the left-margin technique used both in Twitter 
+// Bootstrap (http://twitter.github.com/bootstrap/) and ZURB Foundation (http://foundation.zurb.com/). 
+// 
+// Nested columns are supported too, but not the way Twitter or ZURB currently do it. I'm not resetting 
+// the grid on each level because it feels counter-intuitive. Instead, I've adopted Trevor Davis' solution 
+// (see links below). 
+// 
+// Credits:  
+// Semantic Grid System, http://semantic.gs/
+// Twitter Bootstrap, http://twitter.github.com/bootstrap/ 
+// ZURB Foundation, http://foundation.zurb.com/
+// Building a Nested Responsive Grid with Sass & Compass, http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass
+// Building a modern grid system, http://www.netmagazine.com/tutorials/building-modern-grid-system
+// Introducing the LESS CSS Grid, http://designshack.net/?p=12845
+// 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Defaults which you can override after you include this file
+@columns: 12; 	// any number will do 
+@gutter: 4%; 	// rendered as left margin (first item in a row will have zero margin)
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// You should never need to modify the rest of this file 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Calculate width for one column, based on the given column number and gutter width in percentage
+// Example: @gutter  = 2, @columns = 12: 
+// (100% - (2% * (12 - 1)) ) / 12 = 6.5%
+@onecol: (100% - (@gutter * (@columns - 1))) / @columns;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+.clearfix() {
+	*zoom: 1;
+	
+	&:before,
+	&:after {
+	    content: "";
+	    display: table;
+	}
+	&:after {
+	    clear: both;
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Grid
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// First level columns
+// @num is the number of columns the element should span
+.columns(@num) {
+
+	// Example: @num = 10, @gutter = 2%:
+	// (6.5% * 10) + (2% * (10 - 1)) = 83%
+	width: (@onecol * @num) + (@gutter * (@num - 1));
+
+	margin: 0 0 0 @gutter;
+}
+
+// Nested columns
+// @children is the number of columns the element should span inside its parent
+// @parent is the number of columns the closest parent has 
+// Example: .nestedcolumns(3, 6); makes two columns (spanning three columns each) inside six columns
+.nestedcolumns(@children, @parent) {
+
+	// Example: @parent = 10, @gutter = 2
+	// (6.5% * 10) + (2% * (10 - 1)) = 83%
+	@parentsize: (@onecol * @parent) + (@gutter * (@parent - 1));
+
+	// Example: @children = 3, @gutter = 2
+	// (6.5% * 3) + (2% * (3 - 1)) = 23.5%
+	@childsize: (@onecol * @children) + (@gutter * (@children - 1));
+
+	// Example: @gutter = 2, @parentsize = 83%
+	// (2% / 83%) * 100% = 2.409638554217%
+	margin-left: (@gutter / @parentsize) * 100%;
+
+	// Example: @childsize = 23.5%, @parentsize = 83%
+	// width: (23.5% / 83%) * 100% = 27.710843373494%
+	width: (@childsize / @parentsize) * 100%;
+}

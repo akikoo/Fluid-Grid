@@ -1,0 +1,69 @@
+.cols(){
+
+	/**
+	* In order to work around browsers' different rounding behaviours, we'll float 
+	* the last column in a row to the right so the edge aligns. You can override 
+	* that behaviour by adding class="end" in the last column. 
+	* 
+	* Idea taken from: 
+	* http://foundation.zurb.com/docs/grid.php 
+	* http://www.netmagazine.com/tutorials/building-modern-grid-system
+	* 
+	*/
+	.col + .col:last-child { 
+		float: right; 
+	}
+
+	.col + .col.end { 
+		float: left; 
+	}
+
+	//Cancel the left margin in the first item
+	.row .col:first-child, 
+	.row .row .col:first-child {
+		margin-left: 0;
+	}
+
+	/*Column, generic*/
+	.col {
+		display: inline;
+		float: left;
+		min-height: 1px;
+		position: relative;
+	}
+
+	/*Columns widths and left margins*/
+	.one {
+		.columns(1);
+	}
+	
+	.two {
+		.columns(2);
+	}
+
+	.three {
+		.columns(3);
+	}
+
+	.four {
+		.columns(4);
+	}
+
+	.six {
+		.columns(6);
+	}
+
+	// .nestedcolumns(children, parent);
+	.six .two {
+		.nestedcolumns(2, 6);
+	}
+
+	.six .three {
+		.nestedcolumns(3, 6);
+	}
+
+	.six .four {
+		.nestedcolumns(4, 6);
+	}
+
+}
