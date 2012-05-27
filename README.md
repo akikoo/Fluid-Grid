@@ -2,8 +2,9 @@
 
 ## What is it? 
 
-Fluid, Responsive and Semantic grid is build for LESS CSS. It supports any number 
-of columns. Gutter width is defined as percentage, and grids can be nested too. 
+Fluid, Responsive and Semantic grid is built for LESS CSS. It supports any number 
+of columns. Gutter width is defined as percentage (rendered as left margin), and 
+grids can be nested too. 
 
 ## Requirements for a reusable, fast and flexible grid system
 
