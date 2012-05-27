@@ -30,11 +30,18 @@ be used as a reusable build tool in every project:
 
 So basically what we have here is The Semantic Grid (http://semantic.gs/) and Trevor 
 Davis' Sass & Compass Grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass) 
-merged together (in LESS CSS). There are many grids, but I use this one because 
-it gives me the flexibility I need. Give it a try, to see if it can help streamlining 
-your workflow too!
+merged together (in LESS CSS).
 
 ##Credits 
 
 This grid system wouldn't exist without the many existing awesome grid frameworks. 
 See the credit section in grid.less. 
+
+I'm also using here Nicolas Gallagher's Mobile first CSS and getting Sass to help with 
+legacy IE technique (http://nicolasgallagher.com/mobile-first-css-sass-and-ie/), 
+in LESS CSS, to serve the same grid for oldIE (<IE9) that don't support @media queries. 
+IE has min-width specified so the grid is fluid only until that point. More capable 
+browsers get the responsive version. 
+
+There are many grids, but I use this one because it gives me the flexibility I need. 
+Give it a try, to see if it can help streamlining your workflow too.
