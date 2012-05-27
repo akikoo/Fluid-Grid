@@ -1,0 +1,135 @@
+/**
+ * 
+ * Fluid, Responsive and Semantic grid for LESS: http://lesscss.org/
+ * No @media queries here as this is for oldIE (<IE9)
+ *
+ * Ems are based on generic browser default setting of 16px font size
+ * 
+ * Credits & inspiration: 
+ * Semantic Grid System, http://semantic.gs/
+ * Twitter Bootstrap, http://twitter.github.com/bootstrap/ 
+ * ZURB Foundation, http://foundation.zurb.com/
+ * Building a Nested Responsive Grid with Sass & Compass, http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass
+ * Building a modern grid system, http://www.netmagazine.com/tutorials/building-modern-grid-system
+ * Introducing the LESS CSS Grid, http://designshack.net/?p=12845
+ * 
+ * @author Aki Karkkainen
+ * @url https://github.com/akikoo/Fluid-Grid
+ * Twitter: http://twitter.com/akikoo
+ *
+ */
+/*==============================================================================
+  Import LESS mixins
+==============================================================================*/
+/*==============================================================================
+  Rows, containing any number of columns 
+==============================================================================*/
+.row {
+  display: block;
+  margin: 0 auto 20px;
+  min-width: 768px;
+  /*For oldIE*/
+
+  max-width: 1280px;
+  /*Make sure the grid doesn't get too wide*/
+
+  width: 100%;
+  *zoom: 1;
+}
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+}
+.row:after {
+  clear: both;
+}
+.row .row {
+  min-width: 0;
+}
+/*==============================================================================
+  Columns (note we're not using media query here because we're serving this file to <IE9)
+==============================================================================*/
+/**
+	* In order to work around browsers' different rounding behaviours, we'll float 
+	* the last column in a row to the right so the edge aligns. You can override 
+	* that behaviour by adding class="end" in the last column. 
+	* 
+	* Idea taken from: 
+	* http://foundation.zurb.com/docs/grid.php 
+	* http://www.netmagazine.com/tutorials/building-modern-grid-system
+	* 
+	*/
+.col + .col:last-child {
+  float: right;
+}
+.col + .col.end {
+  float: left;
+}
+.row .col:first-child,
+.row .row .col:first-child {
+  margin-left: 0;
+}
+/*Column, generic*/
+.col {
+  display: inline;
+  float: left;
+  min-height: 1px;
+  position: relative;
+}
+/*Columns widths and left margins*/
+.one {
+  width: 4.666666666666667%;
+  margin: 0 0 0 4%;
+}
+.two {
+  width: 13.333333333333334%;
+  margin: 0 0 0 4%;
+}
+.three {
+  width: 22%;
+  margin: 0 0 0 4%;
+}
+.four {
+  width: 30.666666666666668%;
+  margin: 0 0 0 4%;
+}
+.six {
+  width: 48%;
+  margin: 0 0 0 4%;
+}
+.six .two {
+  margin-left: 8.333333333333332%;
+  width: 27.77777777777778%;
+}
+.six .three {
+  margin-left: 8.333333333333332%;
+  width: 45.83333333333333%;
+}
+.six .four {
+  margin-left: 8.333333333333332%;
+  width: 63.88888888888889%;
+}
+/*==============================================================================
+  Temp demo grid styles
+==============================================================================*/
+h1 {
+  margin: 0 auto 20px;
+  max-width: 1280px;
+  /*Make sure the line doesn't get too long*/
+
+}
+.row {
+  background: #dedede;
+}
+.row .row {
+  background: transparent;
+  margin: 20px auto 0;
+}
+.row .col {
+  min-height: 80px;
+  background: #ccc;
+}
+.row .row .col {
+  background: #aaa;
+}
