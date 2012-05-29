@@ -31,7 +31,183 @@ be used as a reusable build tool in every project:
 
 So basically what we have here is The Semantic Grid (http://semantic.gs/) and Trevor 
 Davis' Sass & Compass Grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass) 
-merged together (in LESS CSS).
+merged together, in LESS CSS.
+
+## Examples of usage
+
+The grid is based on rows that can be nested inside other rows. Each row can
+contain multiple columns, up until the number of columns in the parent column.
+
+For example, let's say you want 12 columns with 4% gutter (default settings).
+Put this in your cols.less stylesheet:
+
+<pre>
+// First level
+.two {
+    .columns(2);
+}
+.three {
+    .columns(3);
+}
+.four {
+    .columns(4);
+}</pre>
+
+That compiles to:
+
+<pre>
+// First level
+.two {
+    width: 13.333333333333334%;
+    margin: 0 0 0 4%;
+}
+.three {
+    width: 22%;
+    margin: 0 0 0 4%;
+}
+.four {
+    width: 30.666666666666668%;
+    margin: 0 0 0 4%;
+}</pre>
+
+And here's the markup:
+
+<pre>&lt;div class="row"&gt;
+    &lt;div class="col three"&gt;&lt;/div&gt;
+    &lt;div class="col three"&gt;&lt;/div&gt;
+    &lt;div class="col four"&gt;&lt;/div&gt;
+    &lt;div class="col two"&gt;&lt;/div&gt;
+&lt;/div&gt;</pre>
+
+You can use your own semantic class names instead, if you fancy that. For example:
+
+<pre>
+// First level
+.navigation {
+    .columns(2);
+}
+.complementary,
+.contentinfo {
+    .columns(3);
+}
+.main {
+    .columns(4);
+}</pre>
+
+The markup:
+
+<pre>&lt;div class="row"&gt;
+    &lt;section class="col main"&gt;&lt;/section&gt;
+    &lt;aside class="col complementary"&gt;&lt;/aside&gt;
+    &lt;nav class="col navigation"&gt;&lt;/nav&gt;
+    &lt;footer class="col contentinfo"&gt;&lt;/footer&gt;
+&lt;/div&gt;</pre>
+
+One more example: a nested grid, three levels deep. Your cols.less stylesheet:
+
+<pre>
+// First level
+.five {
+.columns(5);
+}
+.seven {
+.columns(7);
+}
+
+// Second level:
+// .nestedcolumns(children, parent);
+.five .two {
+.nestedcolumns(2, 5);
+}
+.five .three {
+.nestedcolumns(3, 5);
+}
+.seven .three {
+.nestedcolumns(3, 7);
+}
+.seven .four {
+.nestedcolumns(4, 7);
+}
+
+// Third level:
+.seven .four .two {
+.nestedcolumns(2, 4);
+}</pre>
+
+That compiles to:
+
+<pre>
+// First level
+  .seven {
+    width: 56.66666666666667%;
+    margin: 0 0 0 4%;
+  }
+  .five {
+    width: 39.333333333333336%;
+    margin: 0 0 0 4%;
+  }
+
+// Second level:
+// .nestedcolumns(children, parent);
+  .five .two {
+    margin-left: 10.169491525423728%;
+    width: 33.89830508474576%;
+  }
+  .five .three {
+    margin-left: 10.169491525423728%;
+    width: 55.932203389830505%;
+  }
+  .seven .four {
+    margin-left: 7.0588235294117645%;
+    width: 54.11764705882353%;
+  }
+  .seven .three {
+    margin-left: 7.0588235294117645%;
+    width: 38.8235294117647%;
+  }
+
+// Third level:
+  .seven .four .two {
+    margin-left: 13.043478260869565%;
+    width: 43.47826086956522%;
+  }</pre>
+
+The markup:
+
+<pre>&lt;div class="row"&gt;
+    &lt;div class="col seven"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col four"&gt;
+                &lt;div class="row"&gt;
+                    &lt;div class="col two"&gt;&lt;/div&gt;
+                    &lt;div class="col two"&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col three"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="col five"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col three"&gt;&lt;/div&gt;
+            &lt;div class="col two"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+In most cases, it's unlikely that you need more than three levels of grid
+nesting. (I haven't tested this grid deeper than that, but it should work.)
+
+You can generate any number of columns just by changing two variables. To do
+that, define values for @columns and @gutter in styles.less and styles-ie.less,
+after the line @import 'grid.less';. For example:
+
+<pre>
+@import 'grid.less';
+
+@columns: 5;
+@gutter: 6%;
+
+//the rest of the styles...</pre>
 
 ##Credits 
 
