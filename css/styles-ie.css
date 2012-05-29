@@ -76,27 +76,23 @@
   float: left;
   min-height: 1px;
   position: relative;
+  margin: 0 0 0 4%;
 }
 /*Columns widths and left margins*/
 .one {
   width: 4.666666666666667%;
-  margin: 0 0 0 4%;
 }
 .two {
   width: 13.333333333333334%;
-  margin: 0 0 0 4%;
 }
 .three {
   width: 22%;
-  margin: 0 0 0 4%;
 }
 .four {
   width: 30.666666666666668%;
-  margin: 0 0 0 4%;
 }
 .six {
   width: 48%;
-  margin: 0 0 0 4%;
 }
 .six .two {
   margin-left: 8.333333333333332%;
