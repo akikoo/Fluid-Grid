@@ -70,6 +70,9 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <pre>
 // First level 
+.col {
+    margin: 0 0 0 @gutter;
+}
 .two {
     .columns(2);
 }
@@ -84,17 +87,17 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <pre>
 // First level 
+.col {
+    margin: 0 0 0 4%;
+}
 .two {
     width: 13.333333333333334%;
-    margin: 0 0 0 4%;
 }
 .three {
     width: 22%;
-    margin: 0 0 0 4%;
 }
 .four {
     width: 30.666666666666668%;
-    margin: 0 0 0 4%;
 }</pre>
 
 <p>And here's the markup:</p>
@@ -134,6 +137,9 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <pre>
 // First level 
+.col {
+    margin: 0 0 0 @gutter;
+}
 .five {
 	.columns(5);
 }
@@ -165,13 +171,14 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <pre>
 // First level 
+.col {
+    margin: 0 0 0 4%;
+}
   .five {
     width: 39.333333333333336%;
-    margin: 0 0 0 4%;
   }
   .seven {
     width: 56.66666666666667%;
-    margin: 0 0 0 4%;
   }
 
 // Second level: 
