@@ -138,12 +138,12 @@ That compiles to:
 
 <pre>
 // First level
-  .seven {
-    width: 56.66666666666667%;
-    margin: 0 0 0 4%;
-  }
   .five {
     width: 39.333333333333336%;
+    margin: 0 0 0 4%;
+  }
+  .seven {
+    width: 56.66666666666667%;
     margin: 0 0 0 4%;
   }
 
@@ -157,13 +157,13 @@ That compiles to:
     margin-left: 10.169491525423728%;
     width: 55.932203389830505%;
   }
-  .seven .four {
-    margin-left: 7.0588235294117645%;
-    width: 54.11764705882353%;
-  }
   .seven .three {
     margin-left: 7.0588235294117645%;
     width: 38.8235294117647%;
+  }
+  .seven .four {
+    margin-left: 7.0588235294117645%;
+    width: 54.11764705882353%;
   }
 
 // Third level:
