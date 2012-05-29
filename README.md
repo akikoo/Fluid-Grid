@@ -156,28 +156,28 @@ That compiles to:
 
 // Second level:
 // .nestedcolumns(children, parent);
-  .five .two {
+.five .two {
     margin-left: 10.169491525423728%;
     width: 33.89830508474576%;
-  }
-  .five .three {
+}
+.five .three {
     margin-left: 10.169491525423728%;
     width: 55.932203389830505%;
-  }
-  .seven .three {
+}
+.seven .three {
     margin-left: 7.0588235294117645%;
     width: 38.8235294117647%;
-  }
-  .seven .four {
+}
+.seven .four {
     margin-left: 7.0588235294117645%;
     width: 54.11764705882353%;
-  }
+}
 
 // Third level:
-  .seven .four .two {
+.seven .four .two {
     margin-left: 13.043478260869565%;
     width: 43.47826086956522%;
-  }</pre>
+}</pre>
 
 The markup:
 
