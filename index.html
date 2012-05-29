@@ -141,30 +141,30 @@ contain multiple columns, up until the number of columns in the parent column.</
     margin: 0 0 0 @gutter;
 }
 .five {
-	.columns(5);
+    .columns(5);
 }
 .seven {
-	.columns(7);
+    .columns(7);
 }
 
 // Second level: 
 // .nestedcolumns(children, parent);
 .five .two {
-	.nestedcolumns(2, 5);
+    .nestedcolumns(2, 5);
 }
 .five .three {
-	.nestedcolumns(3, 5);
+    .nestedcolumns(3, 5);
 }
 .seven .three {
-	.nestedcolumns(3, 7);
+    .nestedcolumns(3, 7);
 }
 .seven .four {
-	.nestedcolumns(4, 7);
+    .nestedcolumns(4, 7);
 }
 
 // Third level: 
 .seven .four .two {
-	.nestedcolumns(2, 4);
+    .nestedcolumns(2, 4);
 }</pre>
 
 <p>That compiles to:</p>
@@ -174,37 +174,37 @@ contain multiple columns, up until the number of columns in the parent column.</
 .col {
     margin: 0 0 0 4%;
 }
-  .five {
+.five {
     width: 39.333333333333336%;
-  }
-  .seven {
+}
+.seven {
     width: 56.66666666666667%;
-  }
+}
 
 // Second level: 
 // .nestedcolumns(children, parent);
-  .five .two {
+.five .two {
     margin-left: 10.169491525423728%;
     width: 33.89830508474576%;
-  }
-  .five .three {
+}
+.five .three {
     margin-left: 10.169491525423728%;
     width: 55.932203389830505%;
-  }
-  .seven .three {
+}
+.seven .three {
     margin-left: 7.0588235294117645%;
     width: 38.8235294117647%;
-  }
-  .seven .four {
+}
+.seven .four {
     margin-left: 7.0588235294117645%;
     width: 54.11764705882353%;
-  }
+}
 
 // Third level: 
-  .seven .four .two {
+.seven .four .two {
     margin-left: 13.043478260869565%;
     width: 43.47826086956522%;
-  }</pre>
+}</pre>
 
 <p>The markup:</p>
 
