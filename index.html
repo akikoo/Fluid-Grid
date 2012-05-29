@@ -58,7 +58,183 @@ dependancies</li>
 <li>Ability to decide whether to use unsemantic ".grid-x" classes, or my own.</li>
 </ul><p>So basically what we have here is The Semantic Grid (<a href="http://semantic.gs/">http://semantic.gs/</a>) and Trevor 
 Davis' Sass &amp; Compass Grid (<a href="http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass">http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass</a>) 
-merged together (in LESS CSS).</p>
+merged together, in LESS CSS.</p>
+
+<h2>Examples of usage</h2>
+
+<p>The grid is based on rows that can be nested inside other rows. Each row can 
+contain multiple columns, up until the number of columns in the parent column.</p>
+
+<p>For example, let's say you want 12 columns with 4% gutter (default settings). 
+	Put this in your cols.less stylesheet:</p>
+
+<pre>
+// First level 
+.two {
+    .columns(2);
+}
+.three {
+    .columns(3);
+}
+.four {
+    .columns(4);
+}</pre>
+
+<p>That compiles to:</p>
+
+<pre>
+// First level 
+.two {
+    width: 13.333333333333334%;
+    margin: 0 0 0 4%;
+}
+.three {
+    width: 22%;
+    margin: 0 0 0 4%;
+}
+.four {
+    width: 30.666666666666668%;
+    margin: 0 0 0 4%;
+}</pre>
+
+<p>And here's the markup:</p>
+
+<pre>&lt;div class="row"&gt;
+    &lt;div class="col three"&gt;&lt;/div&gt;
+    &lt;div class="col three"&gt;&lt;/div&gt; 
+    &lt;div class="col four"&gt;&lt;/div&gt;
+    &lt;div class="col two"&gt;&lt;/div&gt;    
+&lt;/div&gt;</pre>
+
+<p>You can use your own semantic class names instead, if you fancy that. For example:</p>
+
+<pre>
+// First level 
+.navigation {
+    .columns(2);
+}	
+.complementary, 
+.contentinfo {
+    .columns(3);
+}
+.main {
+    .columns(4);
+}</pre>
+
+<p>The markup:</p>
+
+<pre>&lt;div class="row"&gt;
+    &lt;section class="col main"&gt;&lt;/section&gt;
+    &lt;aside class="col complementary"&gt;&lt;/aside&gt; 
+    &lt;nav class="col navigation"&gt;&lt;/nav&gt;
+    &lt;footer class="col contentinfo"&gt;&lt;/footer&gt;    
+&lt;/div&gt;</pre>
+
+<p>One more example: a nested grid, three levels deep. Your cols.less stylesheet:</p>
+
+<pre>
+// First level 
+.five {
+	.columns(5);
+}
+.seven {
+	.columns(7);
+}
+
+// Second level: 
+// .nestedcolumns(children, parent);
+.five .two {
+	.nestedcolumns(2, 5);
+}
+.five .three {
+	.nestedcolumns(3, 5);
+}
+.seven .three {
+	.nestedcolumns(3, 7);
+}
+.seven .four {
+	.nestedcolumns(4, 7);
+}
+
+// Third level: 
+.seven .four .two {
+	.nestedcolumns(2, 4);
+}</pre>
+
+<p>That compiles to:</p>
+
+<pre>
+// First level 
+  .seven {
+    width: 56.66666666666667%;
+    margin: 0 0 0 4%;
+  }
+  .five {
+    width: 39.333333333333336%;
+    margin: 0 0 0 4%;
+  }
+
+// Second level: 
+// .nestedcolumns(children, parent);
+  .five .two {
+    margin-left: 10.169491525423728%;
+    width: 33.89830508474576%;
+  }
+  .five .three {
+    margin-left: 10.169491525423728%;
+    width: 55.932203389830505%;
+  }
+  .seven .four {
+    margin-left: 7.0588235294117645%;
+    width: 54.11764705882353%;
+  }
+  .seven .three {
+    margin-left: 7.0588235294117645%;
+    width: 38.8235294117647%;
+  }
+
+// Third level: 
+  .seven .four .two {
+    margin-left: 13.043478260869565%;
+    width: 43.47826086956522%;
+  }</pre>
+
+<p>The markup:</p>
+
+<pre>&lt;div class="row"&gt;
+    &lt;div class="col seven"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col four"&gt;
+                &lt;div class="row"&gt;
+                    &lt;div class="col two"&gt;&lt;/div&gt;
+                    &lt;div class="col two"&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col three"&gt;&lt;/div&gt;
+        &lt;/div&gt;        
+    &lt;/div&gt;
+    &lt;div class="col five"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col three"&gt;&lt;/div&gt;
+            &lt;div class="col two"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;    
+&lt;/div&gt;</pre>
+
+<p>In most cases, it's unlikely that you need more than three levels of grid 
+	nesting. (I haven't tested this grid deeper than that, but it should work.)</p>
+	
+<p>You can generate any number of columns just by changing two variables. To do 
+	that, define values for @columns and @gutter in styles.less and styles-ie.less, 
+	after the line @import 'grid.less';. For example:</p>
+
+<pre>
+@import 'grid.less';
+
+@columns: 5;
+@gutter: 6%;
+
+//the rest of the styles...</pre>
 
 <h2>Credits</h2>
 
