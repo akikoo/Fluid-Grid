@@ -43,6 +43,9 @@ Put this in your cols.less stylesheet:
 
 <pre>
 // First level
+.col {
+    margin: 0 0 0 @gutter;
+}
 .two {
     .columns(2);
 }
@@ -57,17 +60,17 @@ That compiles to:
 
 <pre>
 // First level
+.col {
+    margin: 0 0 0 4%;
+}
 .two {
     width: 13.333333333333334%;
-    margin: 0 0 0 4%;
 }
 .three {
     width: 22%;
-    margin: 0 0 0 4%;
 }
 .four {
     width: 30.666666666666668%;
-    margin: 0 0 0 4%;
 }</pre>
 
 And here's the markup:
@@ -107,45 +110,49 @@ One more example: a nested grid, three levels deep. Your cols.less stylesheet:
 
 <pre>
 // First level
+.col {
+    margin: 0 0 0 @gutter;
+}
 .five {
-.columns(5);
+    .columns(5);
 }
 .seven {
-.columns(7);
+    .columns(7);
 }
 
 // Second level:
 // .nestedcolumns(children, parent);
 .five .two {
-.nestedcolumns(2, 5);
+    .nestedcolumns(2, 5);
 }
 .five .three {
-.nestedcolumns(3, 5);
+    .nestedcolumns(3, 5);
 }
 .seven .three {
-.nestedcolumns(3, 7);
+    .nestedcolumns(3, 7);
 }
 .seven .four {
-.nestedcolumns(4, 7);
+    .nestedcolumns(4, 7);
 }
 
 // Third level:
 .seven .four .two {
-.nestedcolumns(2, 4);
+    .nestedcolumns(2, 4);
 }</pre>
 
 That compiles to:
 
 <pre>
 // First level
-  .five {
+.col {
+    margin: 0 0 0 4%;
+}
+.five {
     width: 39.333333333333336%;
-    margin: 0 0 0 4%;
-  }
-  .seven {
+}
+.seven {
     width: 56.66666666666667%;
-    margin: 0 0 0 4%;
-  }
+}
 
 // Second level:
 // .nestedcolumns(children, parent);
