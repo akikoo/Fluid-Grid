@@ -238,7 +238,7 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <ol>
 	<li>Uncomment and override the default values of @columns and @gutter variables in styles.less and styles-ie.less, to suit you needs.</li>
-	<li>Adapt your grid classes in /less/cols.less and call the .columns(@num) and .nestedcolumns(children, parent) mixins. The reason for having a separate cols.less file is that this way we can reuse the same column styles for oldIE (<IE9), including those styles without @media queries in styles-ie.less.</li>
+	<li>Adapt your grid classes in /less/cols.less and call the .columns(@num) and .nestedcolumns(children, parent) mixins. The reason for having a separate cols.less file is that this way we can reuse the same column styles for oldIE (&lt;IE9), including those styles without @media queries in styles-ie.less.</li>
 	<li>Make sure your markup has the correct classes.</li>
 	<li>Compile LESS files to CSS.</li>
 </ol>
