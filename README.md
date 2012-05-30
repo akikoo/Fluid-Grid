@@ -204,17 +204,19 @@ The markup:
 In most cases, it's unlikely that you need more than three levels of grid
 nesting. (I haven't tested this grid deeper than that, but it should work.)
 
-You can generate any number of columns just by changing two variables. To do
-that, define values for @columns and @gutter in styles.less and styles-ie.less,
-after the line @import 'grid.less';. For example:
+##Generating a new grid
 
-<pre>
-@import 'grid.less';
+You can generate any number of columns just by changing two variables. To generate 
+a new grid, do the following: 
 
-@columns: 5;
-@gutter: 6%;
-
-//the rest of the styles...</pre>
+1. Uncomment and override the default values of @columns and @gutter variables in 
+	styles.less and styles-ie.less, to suit you needs. 
+2. Adapt your grid classes in /less/cols.less and call the .columns(@num) and 
+	.nestedcolumns(children, parent) mixins. The reason for having a separate 
+	cols.less file is that this way we can reuse the same column styles for oldIE 
+	(<IE9), including those styles without @media queries in styles-ie.less. 
+3. Make sure your markup has the correct classes. 
+4. Compile LESS files to CSS.
 
 ##Credits 
 
