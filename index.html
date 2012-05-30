@@ -230,18 +230,18 @@ contain multiple columns, up until the number of columns in the parent column.</
 
 <p>In most cases, it's unlikely that you need more than three levels of grid 
 	nesting. (I haven't tested this grid deeper than that, but it should work.)</p>
-	
-<p>You can generate any number of columns just by changing two variables. To do 
-	that, define values for @columns and @gutter in styles.less and styles-ie.less, 
-	after the line @import 'grid.less';. For example:</p>
 
-<pre>
-@import 'grid.less';
+<h2>Generating a new grid</h2>
 
-@columns: 5;
-@gutter: 6%;
+<p>You can generate any number of columns just by changing two variables. 
+	To generate a new grid, do the following:</p>
 
-//the rest of the styles...</pre>
+<ol>
+	<li>Uncomment and override the default values of @columns and @gutter variables in styles.less and styles-ie.less, to suit you needs.</li>
+	<li>Adapt your grid classes in /less/cols.less and call the .columns(@num) and .nestedcolumns(children, parent) mixins. The reason for having a separate cols.less file is that this way we can reuse the same column styles for oldIE (<IE9), including those styles without @media queries in styles-ie.less.</li>
+	<li>Make sure your markup has the correct classes.</li>
+	<li>Compile LESS files to CSS.</li>
+</ol>
 
 <h2>Credits</h2>
 
