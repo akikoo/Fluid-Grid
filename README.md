@@ -4,7 +4,7 @@
 
 Fluid, Responsive and Semantic grid is built for LESS CSS. It supports any number 
 of columns. Gutter width is defined as percentage (rendered as left margin), and 
-grids can be nested too. [View demo](http://akikoo.github.com/Fluid-Grid/)
+grids can be nested too. [View demo](http://akikoo.github.com/Fluid-Grid/demo.html)
 
 ## Requirements for a reusable, fast and flexible grid system
 
