@@ -57,15 +57,32 @@
 
 
 /*==============================================================================
-  Temp demo grid styles
+  Temp demo grid styles, can be removed
 ==============================================================================*/
+/*Mini reset*/
+* {
+	padding: 0;
+	margin: 0;
+}
+
 h1 {
-	margin: 0 auto 20px;
-	max-width: 1280px;  /*Make sure the line doesn't get too long*/
+	margin: 0 0 40px 10px;
+}
+ 
+p {
+	margin: 0 0 10px 10px;
 }
 
 .row {
 	background: #dedede;
+}
+
+.col {
+    font-size: 12px; 
+    background: rgba(0, 0, 0, 0.1); 
+    border-radius: 5px; 
+    text-align: center; 
+    padding: 10px 0 0; 
 }
 
 .row .row {
@@ -74,10 +91,64 @@ h1 {
 }
 
 .row .col {
-	min-height: 80px;
+	padding: 0 0 20px;
 	background: #ccc; 
 }
 
 .row .row .col {
 	background: #aaa;
+}
+
+
+//Form
+form {
+	border: 1px solid #D2D2D2;
+	border-radius: 5px;
+	margin: 35px 0 0 6px;
+	box-shadow: 0 1px 0 #FFFFFF inset, 0 -1px 0 rgba(0, 0, 0, 0.03) inset;
+}
+
+label {
+	display: inline-block;
+	margin-right: 5px;
+	width: 75px;
+	font-size: 14px;
+}
+
+input[type="submit"], 
+input[type="reset"] {
+	background: -moz-linear-gradient(center top , #F8F8F8 0%, #DDDDDD 100%) repeat scroll 0 0 transparent;
+	border: 1px solid #D2D2D2;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 1px 0 #FFFFFF inset, 0 -1px 0 rgba(0, 0, 0, 0.03) inset;
+	padding: 5px 15px;
+	font-size: 12px;
+}
+
+input[type="submit"]  { 
+	margin: 20px 0 0;
+	font-weight: bold;
+	float: right;
+}
+
+input[type="reset"]  { 
+	margin: 20px 2px 0 0;
+	font-weight: normal;
+	float: left;
+}
+
+input[type="text"] {
+	border: 1px solid #D2D2D2;
+	border-radius: 2px 2px 2px 2px;
+	padding: 1px 2px;
+	width: 25px;
+}
+
+select {
+	width: 100px;
+}
+
+ul {
+    margin: 0 0 20px 20px;
+    list-style-type: disc;
 }
