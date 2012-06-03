@@ -1,84 +1,98 @@
 <!doctype html>
 <html class="no-js" lang="en-gb" dir="ltr">
-<head>
-	<meta charset="utf-8">
+	<head>
+		<meta charset="utf-8">
 
-	<!-- 
-	Fluid, Responsive and Semantic grid with any number of columns for LESS: http://lesscss.org/
-	Credits: See grid.less
+		<!--
+		Fluid, Responsive and Semantic grid with any number of columns for LESS: http://lesscss.org/
+		Credits: See grid.less
+	
+		Author: Aki Karkkainen
+		URL: https://github.com/akikoo/Fluid-Grid
+		Twitter: http://twitter.com/akikoo
+		-->
 
-	Author: Aki Karkkainen
-	URL: https://github.com/akikoo/Fluid-Grid
-	Twitter: http://twitter.com/akikoo
-	-->
+		<title>Fluid, Responsive Grid for LESS CSS</title>
 
-	<title>Fluid, Responsive Grid for LESS CSS</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-	<meta name="description" content="">
-	<meta name="author" content="">
-
-	<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
-	<meta name="HandheldFriendly" content="True">
-	<meta name="MobileOptimized" content="320"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-	<!--[if (gt IE 8) | (IEMobile)]><!-->
-		<link rel="stylesheet" href="css/styles.css">	
-	<!--<![endif]-->
-
-	<!--[if (lt IE 9) & (!IEMobile)]>
-	<link rel="stylesheet" href="css/styles-ie.css">
-	<![endif]-->
-
-</head>
-
-<body>
-
-	<div class="page">
+		<!-- Mobile viewport optimization http://goo.gl/b9SaQ -->
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<h1>Nested Fluid Responsive Grid</h1>
+		<!--[if (gt IE 8) | (IEMobile)]><!-->
+		<link rel="stylesheet" href="css/styles.css">
+		<!--<![endif]-->
 
-		<div class="row">
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>
-			<div class="col one">1</div>			
-		</div>
-		
-		<div class="row">
-			<div class="col three">3</div>
-			<div class="col three">3</div>
-			<div class="col four">4</div>
-			<div class="col two">2</div>
-		</div>
+		<!--[if (lt IE 9) & (!IEMobile)]>
+		<link rel="stylesheet" href="css/styles-ie.css">
+		<![endif]-->
 
-		<div class="row">
-			<div class="col six">
-				6
-				<div class="row">
-					<div class="col three">3 (nested)</div>
-					<div class="col three">3 (nested)</div>
+	</head>
+
+	<body>
+
+		<div class="page">
+
+			<h1>Nested Fluid Responsive Grid</h1>
+
+            <div id="js-row" class="row"></div>
+            
+			<div class="row">
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+				<div class="col one">1</div>
+			</div>
+
+			<div class="row">
+				<div class="col three">3</div>
+				<div class="col three">3</div>
+				<div class="col four">4</div>
+				<div class="col two">2</div>
+			</div>
+	
+			<div class="row">
+				<div class="col six">
+					6
+					<div class="row">
+						<div class="col three">3 (nested)</div>
+						<div class="col three">3 (nested)</div>
+					</div>
+				</div>
+				<div class="col six">
+					6
+					<div class="row">
+						<div class="col four">4 (nested)</div>
+						<div class="col two">2 (nested)</div>
+					</div>
 				</div>
 			</div>
-			<div class="col six">
-				6
-				<div class="row">
-					<div class="col four">4 (nested)</div>
-					<div class="col two">2 (nested)</div>
-				</div>
-			</div>			
+
 		</div>
 
-	</div>
+		<a href="#" title="Open grid configurator" id="toggle">+</a>
+		<form action="" id="updategrid" method="post" style="display:none;"></form>
 
-</body>
+        <p>Be sure to check the following awesome <strong>responsive testing tools</strong>:</p>
+        <ul>
+            <li><a href="http://www.benjaminkeen.com/misc/bricss/">http://www.benjaminkeen.com/misc/bricss/</a></li>
+            <li><a href="http://bricss.net/post/16538278376/simple-responsive-design-test-page">http://bricss.net/post/16538278376/simple-responsive-design-test-page</a></li>
+            <li><a href="http://responsivepx.com">http://responsivepx.com</a></li>
+            <li><a href="http://quirktools.com/screenfly/">http://quirktools.com/screenfly/</a></li>		
+            <li><a href="http://www.responsinator.com">http://www.responsinator.com</a></li>
+        </ul>
+        
+		<script src="js/configurator.js"></script>
+	</body>
 </html>
