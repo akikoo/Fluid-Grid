@@ -27,9 +27,9 @@
         eventUtil       = {                                 // Event util
 
             addHandler: function (element, type, handler) {
-                if (element.addEventListener) {     // W3C
+                if (element.addEventListener) { // W3C
                     element.addEventListener(type, handler, false);
-                } else if (element.attachEvent) {   //IE
+                } else if (element.attachEvent) { // IE
                     element.attachEvent("on" + type, handler);
                 } else {
                     element["on" + type] = handler;
@@ -48,28 +48,28 @@
 
             // Get event element
             getEvent: function (e) {
-                return e || window.event;
+                return e || window.event; // Dom event object || IE event object
             },
 
             // Get source element
             getTarget: function (e) {
-                return e.target || e.srcElement;
+                return e.target || e.srcElement; // Dom event object || IE event object
             },
 
             // Prevent default action
             preventDefault: function (e) {
-                if (e.preventDefault) {
+                if (e.preventDefault) { // Dom event object
                     e.preventDefault();
-                } else {
+                } else { // IE event object
                     e.returnValue = false;
                 }
             },
 
-            // No bubble
+            // Cancel event bubbling
             stopPropagation: function (e) {
-                if (e.stopPropagation) {
+                if (e.stopPropagation) { // Dom event object
                     e.stopPropagation();
-                } else {
+                } else { // IE event object
                     e.cancelBubble = true;
                 }
             }
