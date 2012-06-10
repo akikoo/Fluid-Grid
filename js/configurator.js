@@ -18,28 +18,67 @@
 	'use strict';
 
     // common variables, available to all functions via closure
-    var jsRow           = doc.getElementById('js-row'),     // row that contains dynamically generated rows, based on user input
-        row             = doc.getElementsByClassName('row'),// rows that demonstrate a static nested grid
-        defaultColumns  = 12,                               // default column number
-        defaultGutter   = 4,                                // default gutter width (%)
-        form            = doc.getElementById('updategrid'), // configurator form 
-        formToggle      = doc.getElementById('toggle'),     // form visibility toggle
+    var jsRow           = doc.getElementById('js-row'),     // Row that contains dynamically generated rows, based on user input
+        row             = doc.getElementsByClassName('row'),// Rows that demonstrate a static nested grid
+        defaultColumns  = 12,                               // Default column number
+        defaultGutter   = 4,                                // Default gutter width (%)
+        form            = doc.getElementById('updategrid'), // Configurator form 
+        formToggle      = doc.getElementById('toggle'),     // Form visibility toggle
+        eventUtil       = {                                 // Event util
 
+            addHandler: function (element, type, handler) {
+                if (element.addEventListener) {     // W3C
+                    element.addEventListener(type, handler, false);
+                } else if (element.attachEvent) {   //IE
+                    element.attachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = handler;
+                }
+            },
 
-        // event utility
-        addEvent = function (event, elm, fn) {
-            if (doc.addEventListener) { // W3C
-                elm.addEventListener(event, fn, false);
-            } else if (doc.attachEvent) { // IE
-                doc.attachEvent(event, fn);
+            removeHandler: function (element, type, handler) {
+                if (element.removeEventListener) {
+                    element.removeEventListener(type, handler, false);
+                } else if (element.detachEvent) {
+                    element.detachEvent("on" + type, handler);
+                } else {
+                    element["on" + type] = null;
+                }
+            },
+
+            // Get event element
+            getEvent: function (e) {
+                return e || window.event;
+            },
+
+            // Get source element
+            getTarget: function (e) {
+                return e.target || e.srcElement;
+            },
+
+            // Prevent default action
+            preventDefault: function (e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;
+                }
+            },
+
+            // No bubble
+            stopPropagation: function (e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                } else {
+                    e.cancelBubble = true;
+                }
             }
         },
 
-
-        // initialization
+        // Initialization
         init = function () {
 
-            // form markup
+            // Form markup
             var formMarkup      = '';
 
             formMarkup += '<p>';
@@ -73,66 +112,75 @@
             formMarkup += '<input type="reset" value="Reset">';
             formMarkup += '<input type="submit" value="Update">';
 
-            //insert form
+            // Insert form
             form.innerHTML = formMarkup;
 
-            //hide dynamic rows
+            // Hide dynamic rows
             jsRow.style.display = 'none';
 
-            //attach events
-            addEvent('submit', form, myHandler);
-            addEvent('reset', form, reset);
-            addEvent('click', formToggle, toggleVisibility);
-            addEvent('resize', window, getValues);
+            // Attach events
+            // Submit form
+            eventUtil.addHandler(form, "submit", function (e) {
 
-            //calculate widths
+                // Get event object
+                e = eventUtil.getEvent(e);
+
+                // Prevent form submission
+                eventUtil.preventDefault(e);
+
+                // Update values
+                getValues();
+            });
+
+            // Reset form
+            eventUtil.addHandler(form, "reset", function (e) {
+
+                // Get event object
+                e = eventUtil.getEvent(e);
+
+                // Reset the form to default values
+                reset();
+            });
+
+            // Click the form visiblity toggle
+            eventUtil.addHandler(formToggle, "click", function (e) {
+
+                // Get event object
+                e = eventUtil.getEvent(e);
+
+                // Manage visibility
+                toggleVisibility(e);
+            });
+
+            // Resize window
+            eventUtil.addHandler(window, "resize", function (e) {
+
+                // Get event object
+                e = eventUtil.getEvent(e);
+
+                // Calculate widths
+                getValues();
+            });
+
+            // Calculate widths
             getValues();
         },
 
 
-        // generate stylesheet and insert it in the document head
+        // Generate stylesheet and insert it in the document head
         loadStyleString = function (css) {
             var head    = doc.getElementsByTagName("head")[0],
                 style   = doc.createElement("style");
             style.type  = "text/css";
             try {
                 style.appendChild(doc.createTextNode(css));
-            } catch (ex) { //for IE
+            } catch (ex) { // IE
                 style.styleSheet.cssText = css;
             }
             head.appendChild(style);
         },
 
-
-        // handle submit
-        myHandler = function (e) {
-
-            var src;
-
-            // get event and source element
-            e = e || window.event;
-            src = e.target || e.srcElement;
-
-            // no bubble
-            if (typeof e.stopPropagation === "function") {
-                e.stopPropagation();
-            }
-
-            e.cancelBubble = true;
-
-            // prevent default action
-            if (typeof e.preventDefault === "function") {
-                e.preventDefault();
-            }
-
-            e.returnValue = false;
-
-            // update values
-            getValues();
-        },
-
-
-        // write columns dynamically based on user input
+        // Write columns dynamically based on user input
         generateCols = function (num, onecolpx, gutterpx) {
             var i,
                 cols = "";
@@ -140,93 +188,87 @@
                 cols += '<div class="col one">' + onecolpx + 'px - ' + gutterpx + 'px</div>';
             }
 
-            //insert columns
+            // Insert columns
             jsRow.innerHTML = cols;
         },
 
-
-        // resize the row container to the selected width and height
+        // Resize the row container to the selected width and height
         resize = function (w, h) {
             jsRow.style.width   = (w === '') ? '100%' : w + 'px';
             jsRow.style.height  = (h === '') ? '100%' : h + 'px';
         },
 
-
-        // reset form, calculate default values and update
+        // Reset form, calculate default values and update
         reset = function () {
             var selectbox = doc.forms[0].resolution;
 
-            //reset the form 
+            // Reset the form 
             form.reset();
 
-            //set default values
+            // Set default values
             form.elements[0].value = defaultColumns;
             form.elements[1].value = defaultGutter;
             selectbox.options[0].selected = true;
 
-            //calculate again
+            // Calculate again
             getValues();
         },
 
-
-        // handle the form and row visibility
+        // Handle the form and row visibility
         toggleVisibility = function (e) {
-            var elm         = form,                                 // configuration form
-                linkText    = e.target.firstChild.nodeValue,        // link content
-                title       = e.target.title,                       // link title attribute
-                i,                                                  // counter
-                l           = row.length;                           // number of rows
+            var elm         = form,                                 // Configuration form
+                linkText    = e.target.firstChild.nodeValue,        // Link content
+                title       = e.target.title,                       // Link title attribute
+                i,                                                  // Counter
+                l           = row.length;                           // Number of rows
 
-            //toggle text and title ttribute content
+            // Toggle text and title ttribute content
             e.target.firstChild.nodeValue = (linkText === '+') ? '-' : '+';
             e.target.title = (title === 'Open grid configurator') ? 'Close grid configurator' : 'Open grid configurator';
 
-            //toggle visibility
+            // Toggle visibility
             if (elm.style.display === 'block') {
 
-                elm.style.display = 'none';         // hide form
-                form.reset();                       // reset form
+                elm.style.display = 'none';         // Hide form
+                form.reset();                       // Reset form
 
                 for (i = 1; i < l; i += 1) {
-                    row[i].style.display = 'block'; // show static rows
+                    row[i].style.display = 'block'; // Show static rows
                 }
-                jsRow.style.display = 'none';       // hide dynamic row
+                jsRow.style.display = 'none';       // Hide dynamic row
 
             } else {
 
-                elm.style.display = 'block';        // show form
+                elm.style.display = 'block';        // Show form
 
                 for (i = 1; i < l; i += 1) {
-                    row[i].style.display = 'none';  // hide static rows
+                    row[i].style.display = 'none';  // Hide static rows
                 }
-                jsRow.style.display = 'block';      // show dynamic row
+                jsRow.style.display = 'block';      // Show dynamic row
             }
-
-            e.preventDefault();
         },
 
-
-        //Calculate new values
+        // Calculate new values
         getValues = function () {
 
-            var columns         = form.elements[0].value,                       // number of columns, based on user input
-                gutter          = form.elements[1].value,                       // gutter width in %, based on user input
-                onecol          = (100 - (gutter * (columns - 1))) / columns,   // column width in % 
-                clientWidth     = doc.documentElement.clientWidth,              // viewport width, no scrollbars
-                clientHeight    = doc.documentElement.clientHeight,             // viewport height, no scrollbars
-                browserWidth    = window.innerWidth,                            // browser window width, including scrollbars
-                onecolpx        = Math.round((onecol / 100) * clientWidth),     // column width in px
-                gutterpx        = Math.round((gutter / 100) * clientWidth),     // gutter width  in %
-                docWidth        = doc.getElementById('docWidth'),               // placeholder for browser and document widths
-                styles          = '',                                           // styles to write
-                selectbox       = doc.forms[0].resolution,                      // resolutions select box
-                selectedIndex   = selectbox.selectedIndex,                      // currently selected index
-                selectedOption  = selectbox.options[selectbox.selectedIndex],   // currently selected option element
-                selValue        = selectedOption.value,                         // currently selected option value
-                dimensions      = selValue.split(', '),                         // array of width and height
-                w               = dimensions[0],                                // selected width
-                h               = dimensions[1],                                // selected height
-                colHeight       = dimensions[1] || clientHeight;                // selected height; otherwise viewport height
+            var columns         = form.elements[0].value,                       // Number of columns, based on user input
+                gutter          = form.elements[1].value,                       // Gutter width in %, based on user input
+                onecol          = (100 - (gutter * (columns - 1))) / columns,   // Column width in % 
+                clientWidth     = doc.documentElement.clientWidth,              // Viewport width, no scrollbars
+                clientHeight    = doc.documentElement.clientHeight,             // Viewport height, no scrollbars
+                browserWidth    = window.innerWidth,                            // Browser window width, including scrollbars
+                onecolpx        = Math.round((onecol / 100) * clientWidth),     // Column width in px
+                gutterpx        = Math.round((gutter / 100) * clientWidth),     // Gutter width  in %
+                docWidth        = doc.getElementById('docWidth'),               // Placeholder for browser and document widths
+                styles          = '',                                           // Styles to write
+                selectbox       = doc.forms[0].resolution,                      // Resolutions select box
+                selectedIndex   = selectbox.selectedIndex,                      // Currently selected index
+                selectedOption  = selectbox.options[selectbox.selectedIndex],   // Currently selected option element
+                selValue        = selectedOption.value,                         // Currently selected option value
+                dimensions      = selValue.split(', '),                         // Array of width and height
+                w               = dimensions[0],                                // Selected width
+                h               = dimensions[1],                                // Selected height
+                colHeight       = dimensions[1] || clientHeight;                // Selected height; otherwise viewport height
 
             styles += '#toggle {position:absolute; top:40px; left:10px; border:1px solid #ddd; z-index:1; background:#eee; text-decoration:none; padding:0 10px; font-size:18px; border-radius:5px;}';
             styles += '#updategrid {position:absolute; top:0; left:0; width:180px; background:#eee; padding:45px 10px 10px;}';
@@ -236,21 +278,20 @@
             styles += '#js-row .col:first-child {margin-left:0 !important;} ';
             styles += '#js-row .one {width:' + onecol + '% !important;}';
 
-            // now insert the styles
+            // Now insert the styles
             loadStyleString(styles);
 
-            // generate columns
+            // Generate columns
             generateCols(columns, onecolpx, gutterpx);
 
-            // update width information
+            // Update width information
             docWidth.innerHTML = clientWidth + 'px Window width <br />' + browserWidth + 'px Browser width <br />' + w + ' Viewport width';
 
-            // update row dimensions to a predefined option that is selected from the menu
+            // Update row dimensions to a predefined option that is selected from the menu
             resize(w, h);
         };
 
-
-    //initialize default state
+    // Initialize default state
     init();
 
 }(window, document));
