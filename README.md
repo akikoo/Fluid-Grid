@@ -8,7 +8,7 @@ grids can be nested too. [View demo](http://akikoo.github.com/Fluid-Grid/demo.ht
 
 ## Requirements for a reusable, fast and flexible grid system
 
-I believe a CSS grid system should meet the following requirements so that it can 
+I think a CSS grid system should meet the following requirements so that it can 
 be used as a reusable build tool in every project:
 
 * Flexible, supporting any number of columns and gutter widths, as required by the 
@@ -32,6 +32,13 @@ be used as a reusable build tool in every project:
 So basically what we have here is The Semantic Grid (http://semantic.gs/) and Trevor 
 Davis' Sass & Compass Grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass) 
 merged together, in LESS CSS.
+
+## Grid preview tool
+I've also created a grid configurator that you can use to try out both fluid and 
+flexible grids, by entering the number of columns and gutter width (click on the 
+plus sign in the top left corner, to expand the widget). To see your grid in a 
+fixed viewport size, select one of the predefined device pixel dimensions from 
+the dropdown.
 
 ## Examples of usage
 
