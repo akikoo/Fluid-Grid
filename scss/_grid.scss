@@ -24,7 +24,8 @@
  * Building a modern grid system, http://www.netmagazine.com/tutorials/building-modern-grid-system
  * Introducing the LESS CSS Grid, http://designshack.net/?p=12845
  * 
- * @author Aki Karkkainen
+ * @author Aki Karkkainen (this basically comes from Trevor Davis, I've added 
+ * comments and tweaked things a bit).
  * @url https://github.com/akikoo/Fluid-Grid
  * @url https://github.com/akikoo/one-web-boilerplate
  * Twitter: http://twitter.com/akikoo
@@ -115,12 +116,6 @@ $onecol: (100% - ($gutter * ($columns - 1))) / $columns;
 
 .row .row {
     min-width: 0;
-}
-
-@media only screen and (min-width: 0) {
-    .row {
-        min-width: 0; /*Overwrite oldIE rule form modern browsers*/
-    }
 }
 
 /*==============================================================================
