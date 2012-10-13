@@ -305,7 +305,7 @@ To generate a new grid in Sass (SCSS), do the following:
 ##Credits 
 
 This grid system wouldn't exist without the many existing awesome grid frameworks. 
-See the credit section in grid.less. 
+See the credit section in grid.less and _grid.scss. 
 
 I'm also using here Nicolas Gallagher's Mobile first CSS and getting Sass to help with 
 legacy IE technique (http://nicolasgallagher.com/mobile-first-css-sass-and-ie/), 
