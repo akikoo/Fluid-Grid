@@ -1,0 +1,202 @@
+/**
+ * 
+ * Fluid, Responsive and Semantic grid for Sass (SCSS): http://sass-lang.com/
+ * 
+ * Supports both generic '.grid-x' classes, or your own semantic class names, 
+ * if you prefer. The grid is dynamically generated with the class names you specify. 
+ * You can have any number of columns, with a gutter width you want (in percentage 
+ * of course). Column widths and margins are calculated based on those two values. 
+ * 
+ * Instead of using both left and right margins (and negative margins in column 
+ * container) as the Semantic Grid System does, this solution adopts the left-margin 
+ * technique used both in Twitter Bootstrap (http://twitter.github.com/bootstrap/) 
+ * and ZURB Foundation (http://foundation.zurb.com/). 
+ * 
+ * Nested columns are supported too, but not the way Twitter or ZURB currently do it. 
+ * I'm not resetting the grid on each level because it feels counter-intuitive. 
+ * Instead, I've adopted Trevor Davis' solution (see links below). 
+ * 
+ * Credits & inspiration: 
+ * Semantic Grid System, http://semantic.gs/
+ * Twitter Bootstrap, http://twitter.github.com/bootstrap/ 
+ * ZURB Foundation, http://foundation.zurb.com/
+ * Building a Nested Responsive Grid with Sass & Compass, http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass
+ * Building a modern grid system, http://www.netmagazine.com/tutorials/building-modern-grid-system
+ * Introducing the LESS CSS Grid, http://designshack.net/?p=12845
+ * 
+ * @author Aki Karkkainen
+ * @url https://github.com/akikoo/Fluid-Grid
+ * @url https://github.com/akikoo/one-web-boilerplate
+ * Twitter: http://twitter.com/akikoo
+ */
+
+
+// Defaults, feel free to change
+$columns: 12;   // any number will do 
+$gutter: 4%;    // rendered as left margin (first item in a row will have zero margin)
+
+
+////////////////////////////////////////////////////////////////////////////////
+// You should never need to modify the rest of this file 
+////////////////////////////////////////////////////////////////////////////////
+
+// Calculate width for one column, based on the given column number and gutter 
+// width in percentage.
+// Example: $gutter  = 2, $columns = 12: 
+// (100% - (2% * (12 - 1)) ) / 12 = 6.5%
+$onecol: (100% - ($gutter * ($columns - 1))) / $columns;
+
+////////////////////////////////////////////////////////////////////////////////
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
+////////////////////////////////////////////////////////////////////////////////
+
+@mixin clearfix() {
+    *zoom:1;
+    &:before, 
+    &:after {
+        content: ""; 
+        display: table; 
+    }
+    &:after {
+        clear: both; 
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Grid
+////////////////////////////////////////////////////////////////////////////////
+
+// First level columns.
+// $num is the number of columns the element should span.
+@mixin columns($num) {
+
+    // Example: $num = 10, $gutter = 2%:
+    // (6.5% * 10) + (2% * (10 - 1)) = 83%
+    width: ($onecol * $num) + ($gutter * ($num - 1));
+
+    //margin: 0 0 0 $gutter;
+}
+
+// Nested columns.
+// $children is the number of columns the element should span inside its parent.
+// $parent is the number of columns the closest parent has. 
+// Example: .nestedcolumns(3, 6); makes two columns (spanning three columns each) 
+// inside six columns.
+@mixin nestedcolumns($children, $parent) {
+
+    // Example: $parent = 10, $gutter = 2
+    // (6.5% * 10) + (2% * (10 - 1)) = 83%
+    $parentsize: ($onecol * $parent) + ($gutter * ($parent - 1));
+
+    // Example: $children = 3, $gutter = 2
+    // (6.5% * 3) + (2% * (3 - 1)) = 23.5%
+    $childsize: ($onecol * $children) + ($gutter * ($children - 1));
+
+    // Example: $gutter = 2, $parentsize = 83%
+    // (2% / 83%) * 100% = 2.409638554217%
+    margin-left: ($gutter / $parentsize) * 100%;
+
+    // Example: $childsize = 23.5%, $parentsize = 83%
+    // width: (23.5% / 83%) * 100% = 27.710843373494%
+    width: ($childsize / $parentsize) * 100%;
+}
+
+/*==============================================================================
+  Rows, containing any number of columns 
+==============================================================================*/
+.row {
+    display: block;
+    margin: 0 auto 20px;
+    min-width: 768px;       /* For oldIE, will be overwritten inside @media query */
+    /*max-width: 1280px;*/  /* Make sure the grid doesn't get too wide */
+    width: 100%;
+    @include clearfix;
+}
+
+.row .row {
+    min-width: 0;
+}
+
+@media only screen and (min-width: 0) {
+    .row {
+        min-width: 0; /*Overwrite oldIE rule form modern browsers*/
+    }
+}
+
+/*==============================================================================
+  Columns, generic
+==============================================================================*/
+/**
+* In order to work around browsers' different rounding behaviours, we'll float 
+* the last column in a row to the right so the edge aligns. You can override 
+* that behaviour by adding class="end" in the last column. 
+* 
+* Idea taken from: 
+* http://foundation.zurb.com/docs/grid.php 
+* http://www.netmagazine.com/tutorials/building-modern-grid-system
+* 
+*/
+
+.col + .col:last-child { 
+    float: right; 
+}
+
+.col + .col.end { 
+    float: left; 
+}
+
+/* Cancel the left margin in the first item */
+.row .col:first-child, 
+.row .row .col:first-child {
+    margin-left: 0;
+}
+
+/* Column, generic */
+.col {
+    display: inline;
+    float: left;
+    min-height: 1px;
+    position: relative;
+    margin: 0 0 0 $gutter;
+}
+
+/*==============================================================================
+  Column widths and left margins (use your own classes, this is just for demonstration)
+==============================================================================*/
+// columns(children);
+.one {
+    @include columns(1);
+}
+
+.two {
+    @include columns(2);
+}
+
+.three {
+    @include columns(3);
+}
+
+.four {
+    @include columns(4);
+}
+
+.five {
+    @include columns(5);
+}
+
+.six {
+    @include columns(6);
+}
+
+// nestedcolumns(children, parent);
+.six .two {
+    @include nestedcolumns(2, 6);
+}
+
+.six .three {
+    @include nestedcolumns(3, 6);
+}
+
+.six .four {
+    @include nestedcolumns(4, 6);
+}
