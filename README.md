@@ -2,9 +2,9 @@
 
 ## What is it? 
 
-Fluid, Responsive and Semantic grid is built for LESS CSS. It supports any number 
-of columns. Gutter width is defined as percentage (rendered as left margin), and 
-grids can be nested too. [View demo](http://akikoo.github.com/Fluid-Grid/demo.html)
+Fluid, Responsive and Semantic grid is built for Sass (SCSS) and LESS CSS. 
+It supports any number of columns. Gutter width is defined as percentage 
+(rendered as left margin), and grids can be nested too. [View demo](http://akikoo.github.com/Fluid-Grid/demo.html)
 
 ## Requirements for a reusable, fast and flexible grid system
 
@@ -31,7 +31,7 @@ be used as a reusable build tool in every project:
 
 So basically what we have here is The Semantic Grid (http://semantic.gs/) and Trevor 
 Davis' Sass & Compass Grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass) 
-merged together, in LESS CSS.
+merged together, in Sass (SCSS), or alternatively with LESS CSS.
 
 ## Grid preview tool
 I've also created a grid configurator that you can use to try out both fluid and 
@@ -61,6 +61,23 @@ Put this in your cols.less stylesheet:
 }
 .four {
     .columns(4);
+}</pre>
+
+Alternatively, if you use Sass (put this in _grid.scss):
+
+<pre>
+// First level
+.col {
+    margin: 0 0 0 $gutter;
+}
+.two {
+    @include columns(2);
+}
+.three {
+    @include columns(3);
+}
+.four {
+    @include columns(4);
 }</pre>
 
 That compiles to:
@@ -104,6 +121,21 @@ You can use your own semantic class names instead, if you fancy that. For exampl
     .columns(4);
 }</pre>
 
+The same in SCSS: 
+
+<pre>
+// First level
+.navigation {
+    @include columns(2);
+}
+.complementary,
+.contentinfo {
+    @include columns(3);
+}
+.main {
+    @include columns(4);
+}</pre>
+
 The markup:
 
 <pre>&lt;div class="row"&gt;
@@ -145,6 +177,40 @@ One more example: a nested grid, three levels deep. Your cols.less stylesheet:
 // Third level:
 .seven .four .two {
     .nestedcolumns(2, 4);
+}</pre>
+
+Same in SCSS: 
+
+<pre>
+// First level
+.col {
+    margin: 0 0 0 $gutter;
+}
+.five {
+    @include columns(5);
+}
+.seven {
+    @include columns(7);
+}
+
+// Second level:
+// nestedcolumns(children, parent);
+.five .two {
+    @include nestedcolumns(2, 5);
+}
+.five .three {
+    @include nestedcolumns(3, 5);
+}
+.seven .three {
+    @include nestedcolumns(3, 7);
+}
+.seven .four {
+    @include nestedcolumns(4, 7);
+}
+
+// Third level:
+.seven .four .two {
+    @include nestedcolumns(2, 4);
 }</pre>
 
 That compiles to:
@@ -214,7 +280,7 @@ nesting. (I haven't tested this grid deeper than that, but it should work.)
 ##Generating a new grid
 
 You can generate any number of columns just by changing two variables. To generate 
-a new grid, do the following: 
+a new grid in LESS CSS, do the following: 
 
 1. Uncomment and override the default values of @columns and @gutter variables in 
 	styles.less and styles-ie.less, to suit you needs. 
@@ -224,6 +290,15 @@ a new grid, do the following:
 	(<IE9), including those styles without @media queries in styles-ie.less. 
 3. Make sure your markup has the correct classes. 
 4. Compile LESS files to CSS.
+
+To generate a new grid in Sass (SCSS), do the following: 
+
+1. Change the values of $columns and $gutter variables in /scss/_grid.scss, 
+    to suit you needs. 
+2. Adapt your grid classes in /scss/cols.less and call the columns(@num) and 
+    nestedcolumns(children, parent) mixins.
+3. Make sure your markup has the correct classes. 
+4. Compile SCSS files to CSS.
 
 ##Credits 
 
