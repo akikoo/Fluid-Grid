@@ -31,7 +31,7 @@ be used as a reusable build tool in every project:
 
 So basically what we have here is The Semantic Grid (http://semantic.gs/) and Trevor 
 Davis' Sass & Compass Grid (http://viget.com/inspire/building-a-nested-responsive-grid-with-sass-compass) 
-merged together, in Sass (SCSS), or alternatively with LESS CSS.
+merged together in Sass (SCSS), or alternatively with LESS CSS.
 
 ## Grid preview tool
 I've also created a grid configurator that you can use to try out both fluid and 
@@ -63,7 +63,7 @@ Put this in your cols.less stylesheet:
     .columns(4);
 }</pre>
 
-Alternatively, if you use Sass (put this in _grid.scss):
+Alternatively, if you use Sass (put this in /scss/_grid.scss):
 
 <pre>
 // First level
@@ -106,7 +106,8 @@ And here's the markup:
     &lt;div class="col two"&gt;&lt;/div&gt;
 &lt;/div&gt;</pre>
 
-You can use your own semantic class names instead, if you fancy that. For example:
+You can use your own semantic class names instead, if you fancy that. For example 
+(LESS version):
 
 <pre>
 // First level
@@ -283,7 +284,7 @@ You can generate any number of columns just by changing two variables. To genera
 a new grid in LESS CSS, do the following: 
 
 1. Uncomment and override the default values of @columns and @gutter variables in 
-	styles.less and styles-ie.less, to suit you needs. 
+	styles.less and styles-ie.less, to suit your needs. 
 2. Adapt your grid classes in /less/cols.less and call the .columns(@num) and 
 	.nestedcolumns(children, parent) mixins. The reason for having a separate 
 	cols.less file is that this way we can reuse the same column styles for oldIE 
@@ -294,8 +295,8 @@ a new grid in LESS CSS, do the following:
 To generate a new grid in Sass (SCSS), do the following: 
 
 1. Change the values of $columns and $gutter variables in /scss/_grid.scss, 
-    to suit you needs. 
-2. Adapt your grid classes in /scss/cols.less and call the columns(@num) and 
+    to suit your needs. 
+2. Adapt your grid classes in /scss/_grid.scss and call the columns(@num) and 
     nestedcolumns(children, parent) mixins.
 3. Make sure your markup has the correct classes. 
 4. Compile SCSS files to CSS.
@@ -307,9 +308,9 @@ See the credit section in grid.less.
 
 I'm also using here Nicolas Gallagher's Mobile first CSS and getting Sass to help with 
 legacy IE technique (http://nicolasgallagher.com/mobile-first-css-sass-and-ie/), 
-in LESS CSS, to serve the same grid for oldIE (<IE9) that don't support @media queries. 
-IE has min-width specified so the grid is fluid only until that point. More capable 
-browsers get the responsive version. 
+to serve the same grid for oldIE (<IE9) that don't support @media queries. IE has 
+min-width specified so the grid is fluid only until that point. More capable browsers 
+get the responsive version. 
 
 There are many grids, but I use this one because it gives me the flexibility I need. 
 Give it a try, to see if it can help streamlining your workflow too.
