@@ -280,8 +280,9 @@ nesting. (I haven't tested this grid deeper than that, but it should work.)
 
 ##Generating a new grid
 
-You can generate any number of columns just by changing two variables. To generate 
-a new grid in LESS CSS, do the following: 
+You can generate any number of columns just by changing two variables. 
+
+To generate a new grid in LESS CSS, do the following: 
 
 1. Uncomment and override the default values of @columns and @gutter variables in 
 	styles.less and styles-ie.less, to suit your needs. 
